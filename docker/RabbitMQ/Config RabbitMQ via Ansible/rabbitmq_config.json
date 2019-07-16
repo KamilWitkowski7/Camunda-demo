@@ -1,0 +1,133 @@
+{
+    "rabbit_version": "3.3.5",
+    "users": [
+        {
+            "name": "guest",
+            "password_hash": "BDqUJR8CBSwsDPo3DCFmwFajpVw=",
+            "tags": "administrator"
+        }
+    ],
+    "vhosts": [
+        {
+            "name": "/"
+        }
+    ],
+    "permissions": [
+        {
+            "user": "guest",
+            "vhost": "/",
+            "configure": ".*",
+            "write": ".*",
+            "read": ".*"
+        }
+    ],
+    "parameters": [],
+    "policies": [],
+    "queues": [
+        {
+            "name": "error",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "debt-collection-event.queue",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-dead-letter-exchange": "demo.dl"
+            }
+        },
+        {
+            "name": "historyEvents",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-dead-letter-exchange": "historyEventExchange.dl"
+            }
+        },
+        {
+            "name": "historyEventsError",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        }
+
+    ],
+    "exchanges": [
+        {
+            "name": "demo",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        },
+        {
+            "name": "demo.dl",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        },
+        {
+            "name": "historyEventExchange",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        },
+        {
+            "name": "historyEventExchange.dl",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }
+    ],
+    "bindings": [
+        {
+            "source": "demo",
+            "vhost": "/",
+            "destination": "debt-collection-event.queue",
+            "destination_type": "queue",
+            "routing_key": "debt-collection-event",
+            "arguments": {}
+        },
+        {
+            "source": "demo.dl",
+            "vhost": "/",
+            "destination": "error",
+            "destination_type": "queue",
+            "routing_key": "debt-collection-event",
+            "arguments": {}
+        },
+        {
+            "source": "historyEventExchange",
+            "vhost": "/",
+            "destination": "historyEvents",
+            "destination_type": "queue",
+            "routing_key": "#",
+            "arguments": {}
+        },
+        {
+            "source": "historyEventExchange.dl",
+            "vhost": "/",
+            "destination": "historyEventsError",
+            "destination_type": "queue",
+            "routing_key": "#",
+            "arguments": {}
+        }
+    ]
+}

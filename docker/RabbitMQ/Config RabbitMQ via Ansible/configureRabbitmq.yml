@@ -1,0 +1,63 @@
+- hosts: localhost
+  vars:
+    rabbitmq_guest_user: "guest"
+    rabbitmq_guest_password: "guest"
+    rabbimq_rest_api_url: "http://127.0.0.1:15672/api"
+    
+    rabbitmq_admin_user: "admin"
+    rabbitmq_admin_password: "rabbitmq"
+    
+    rabbitmq_client_user: "rabbitmq" #if change reconfigure client applications
+    rabbitmq_client_password: "rabbitmq"  
+ 
+  tasks:
+    - name: ensure users exist
+      rabbitmq_user:
+        user: guest
+        password: guest
+        vhost: /
+        configure_priv: .*
+        read_priv: .*
+        write_priv: .*
+        tags: "administrator"
+        state: present
+        
+    - name: configure
+      uri:
+        url: "{{ rabbimq_rest_api_url }}/definitions"
+        method: POST       
+        body: "{{ lookup('file','rabbitmq_config.json') }}"
+        user: "{{ rabbitmq_guest_user }}"
+        password: "{{ rabbitmq_guest_password }}"
+        force_basic_auth: yes
+        status_code: 204
+        timeout: 10
+        body_format: json
+        
+    - name: ensure the users are removed
+      rabbitmq_user: 
+        user: guest 
+        state: absent  
+
+    - name: ensure users exist
+      rabbitmq_user:
+        user: "{{ rabbitmq_admin_user }}"
+        password: "{{ rabbitmq_admin_password }}"
+        vhost: /
+        configure_priv: .*
+        read_priv: .*
+        write_priv: .*
+        tags: "administrator"
+        state: present
+            
+    - name: ensure users exist
+      rabbitmq_user:
+        user: "{{ rabbitmq_client_user }}"
+        password: "{{ rabbitmq_client_password }}"
+        vhost: /
+        configure_priv: .*
+        read_priv: .*
+        write_priv: .*            
+        state: present
+ 
+

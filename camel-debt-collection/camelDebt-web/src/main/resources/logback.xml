@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOG_FILE" value="${catalina.base}/logs/camel-debt.log"/>
+    <property name="LOG_FILE_MAX_SIZE" value="200MB"/>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+</configuration>

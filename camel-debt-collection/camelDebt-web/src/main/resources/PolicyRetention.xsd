@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema id="PolicyRetention" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="PolicyRetention" type="PolicyRetention"/>
+    <xs:complexType name="PolicyRetention">
+        <xs:sequence>
+            <xs:element name="Subscriber" type="SubscriberInfo" />
+            <xs:element name="Policy" type="PolicyInfo" />
+            <xs:element name="PaymentInfo" type="PaymentInfo" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SubscriberInfo">
+        <xs:sequence>
+            <xs:element name="Party" type="PartyInfo"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PartyInfo">
+        <xs:sequence>
+            <xs:element name="Person" type="PersonInfo"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PersonInfo">
+        <xs:sequence>
+            <xs:element name="FirstName" type="xs:string"/>
+            <xs:element name="LastName" type="xs:string"/>
+            <xs:element minOccurs="0" name="Gender" type="LOV_GENDER" />
+            <xs:element minOccurs="0" name="AddressHome" type="Address" />
+            <xs:element minOccurs="0" name="PhoneMob" type="Phone" />
+            <xs:element minOccurs="0" name="EMail" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PolicyInfo">
+        <xs:sequence>
+            <xs:element name="PolicyNumber" type="xs:string" />
+            <xs:element name="SignedDate" type="xs:date" />
+            <xs:element name="PolicyDate" type="xs:date" />
+            <xs:element name="BankAccount" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PaymentInfo">
+        <xs:sequence>
+            <xs:element name="EffectiveDate" type="xs:date" />
+            <xs:element name="DueDate" type="xs:date" />
+            <xs:element name="DebtAmount" type="xs:decimal" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Address">
+        <xs:sequence>
+            <xs:element name="Street" type="xs:string" />
+            <xs:element name="HouseNo" type="xs:string" />
+            <xs:element minOccurs="0" name="FlatNo" type="xs:string" />
+            <xs:element name="Zip" type="xs:string" />
+            <xs:element name="City" type="xs:string" />
+            <xs:element name="Country" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Phone">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="CountryCode" type="xs:string" />
+            <xs:element name="PhoneNumber" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="LOV_GENDER">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="F" />
+            <xs:enumeration value="M" />
+            <xs:enumeration value="U" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="LOV_INSURER_TYPE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="LIFE" />
+            <xs:enumeration value="NON_LIFE" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
