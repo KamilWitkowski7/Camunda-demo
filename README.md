@@ -1,6 +1,8 @@
 # Camunda-demo
 Demo showing usage of Camunda, Java, SpringBoot, Kibana, Elaticsearch, Swagger, Docker, Ansible and Camel
 
+In this demo I am simulating vindication process. I am showing how many money we managed to retrieve/lost due to debt on Kibana dashboard. I am also showing how many manual Camunda's processes there are currently. This manual process can be for example a task to send a letter to remind our client to pay his debt.
+
 <b> Architecture </b>
 <p align="center">
     <img alt="Architecture" src="https://raw.githubusercontent.com/KamilWitkowski7/Camunda-demo/master/readme-images/diagram.png" />
@@ -15,7 +17,7 @@ Demo showing usage of Camunda, Java, SpringBoot, Kibana, Elaticsearch, Swagger, 
 
 Command: 
 ```
-docker run -d --hostname my-rabbit --name rabbit-demo -p 5672:5672 -p 8090:15672 rabbitmq:3-management
+docker run -v rabbitmq-data:/var/lib/rabbitmq -d --hostname my-rabbit --name rabbit-demo -p 8090:15672 -p 5672:5672 rabbitmq:3-management
 ```
 <b>3. Configure RabbitMQ manually or via ansible</b>
 
