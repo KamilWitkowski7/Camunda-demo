@@ -24,7 +24,7 @@
         <java.version>11</java.version>
         <swagger.version>2.9.2</swagger.version>
         <camel.version>3.0.0-M2</camel.version>
-        <springboot.version>2.1.4.RELEASE</springboot.version>
+        <springboot.version>2.5.12</springboot.version>
     </properties>
 
     <dependencyManagement>
